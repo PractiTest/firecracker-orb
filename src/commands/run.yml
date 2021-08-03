@@ -56,7 +56,7 @@ parameters:
     type: string
     default: |
       \"custom-fields\":{},\"system-fields\":{}
-    description: "firecracker additional-testset-fields"
+    description: "firecracker additional-testset-fields "
 
 steps:
   - run:
