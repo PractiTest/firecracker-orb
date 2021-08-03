@@ -1,0 +1,102 @@
+description: >
+  This command echos "Hello World" using file inclusion.
+# What will this command do?
+# Descriptions should be short, simple, and clear.
+parameters:
+  test_folder:
+    type: string
+    default: "test_results"
+    description: "test results folder name"
+  firecracker_version:
+    type: string
+    default: "v2.0"
+    description: "firecracker version"
+  author_id:
+    type: string
+    default: ""
+    description: "firecracker author id"
+  extra_params:
+    type: string
+    default: ""
+    description: "firecracker extra parameters"
+  api_token:
+    type: string
+    default: ""
+    description: "firecracker api token"
+  email:
+    type: string
+    default: ""
+    description: "firecracker email"
+  project_id:
+    type: string
+    default: ""
+    description: "firecracker project_id"
+  json_extra_params:
+    type: string
+    default: ""
+    description: "firecracker json_extra_params"
+  api_uri:
+    type: string
+    default: "https://prod.practitest.com/"
+    description: "firecracker uri"
+  multitestset:
+    type: string
+    default: "true"
+    description: "firecracker is multitestset run"
+  testset_name:
+    type: string
+    default: "FirecrackerTestSet"
+    description: "firecracker testset name in case of single Testset run"
+  additional_test_fields:
+    type: string
+    default: |
+      \"custom-fields\":{},\"system-fields\":{}
+    description: "firecracker additional-test-fields"
+  additional_testset_fields:
+    type: string
+    default: |
+      \"custom-fields\":{},\"system-fields\":{}
+    description: "firecracker additional-testset-fields"
+
+steps:
+  - run:
+      name: create config file
+      command: |
+        echo "{\"api-token\":\"<<parameters.api_token>>\",\"email\":\"<<parameters.email>>\",\"project-id\":"<<parameters.project_id>>",\"additional-test-fields\":{<<parameters.additional_test_fields>>},\"additional-testset-fields\":{<<parameters.additional_testset_fields>>}<<parameters.json_extra_params>>}" > config.json
+      when: always
+
+  - run:
+      name: download firecracker jar
+      command: |
+        wget https://github.com/PractiTest/practitest-firecracker/releases/download/<<parameters.firecracker_version>>/practitest-firecracker-standalone.jar
+      when: always
+
+  - run:
+      name: create docker
+      command: |
+        docker create -v /app --name firecracker adoptopenjdk:11-jre-hotspot
+      when: always
+
+  - run:
+      name: copy xml results
+      command: |
+        docker cp "$(pwd)"/<<parameters.test_folder>> firecracker:/app
+      when: always
+
+  - run:
+      name: copy json
+      command: |
+        docker cp "$(pwd)"/config.json firecracker:/app
+      when: always
+
+  - run:
+      name: copy jar
+      command: |
+        docker cp "$(pwd)"/practitest-firecracker-standalone.jar firecracker:/app
+      when: always
+
+  - run:
+      name: start firecracker
+      command: |
+        docker run --volumes-from firecracker adoptopenjdk:11-jre-hotspot java --illegal-access=deny -jar /app/practitest-firecracker-standalone.jar --reports-path="app/<<parameters.test_folder>>" --author-id=<<parameters.author_id>> --config-path="app/config.json" <<parameters.extra_params>> create-and-populate-testset
+      when: always
