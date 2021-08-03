@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   # Replace this with your own!
-  firecracker: practitest/firecracker@<<pipeline.parameters.dev-orb-version>>
+  firecracker: practitest/firecracker@0.0.1
   orb-tools: circleci/orb-tools@10.0
   bats: circleci/bats@1.0
   shellcheck: circleci/shellcheck@2.0
