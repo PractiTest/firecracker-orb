@@ -35,13 +35,27 @@ parameters:
     type: string
     default: ""
     description: "firecracker json_extra_params"
+  api_uri:
+    type: string
+    default: "https://prod.practitest.com/"
+    description: "firecracker uri"
+  multitestset:
+    type: string
+    default: "true"
+    description: "firecracker is multitestset run"
+  testset_name:
+    type: string
+    default: "FirecrackerTestSet"
+    description: "firecracker testset name in case of single Testset run"
   additional_test_fields:
     type: string
-    default: "\"custom-fields\":{},\"system-fields\":{}"
+    default: |
+      \"custom-fields\":{},\"system-fields\":{}
     description: "firecracker additional-test-fields"
   additional_testset_fields:
     type: string
-    default: "\"custom-fields\":{},\"system-fields\":{}"
+    default: |
+      \"custom-fields\":{},\"system-fields\":{}
     description: "firecracker additional-testset-fields"
 
 steps:
