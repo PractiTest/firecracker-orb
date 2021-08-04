@@ -1,7 +1,8 @@
 description: >
-  This command echos "Hello World" using file inclusion.
-# What will this command do?
-# Descriptions should be short, simple, and clear.
+  This command will get all the configurations for firecracker run
+    and execute it.
+  Firecracker - is a tool to create testset/test/steps in PractiTest
+    from XML test results.
 parameters:
   test_folder:
     type: string
