@@ -1,7 +1,7 @@
 description: >
   This command will get all the configurations for firecracker run
     and execute it.
-  Firecracker -  is a tool to create testset/test/steps in PractiTest
+  Firecracker - is a tool to create testset/test/steps in PractiTest
     from XML test results.
 parameters:
   test_folder:
