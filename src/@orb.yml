@@ -4,7 +4,6 @@ description: >
   This orb will help you to connect PractiTest's Firecracker tool.
   Firecracker will use your test result XML and upload it into your PractiTest project.
 
-# This  information will be displayed in the orb registry and is not mandatory.
 display:
   home_url: "https://www.practitest.com/help/methodology-tips/firecracker/"
   source_url: "https://github.com/PractiTest/firecracker-orb"
