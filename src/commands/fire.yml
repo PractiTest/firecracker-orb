@@ -6,7 +6,6 @@ description: >
 parameters:
   test_folder:
     type: string
-    required: true
     description: "test results folder name"
   firecracker_version:
     type: string
@@ -14,7 +13,6 @@ parameters:
     description: "firecracker version"
   author_id:
     type: string
-    required: true
     description: "firecracker author id"
   extra_params:
     type: string
@@ -22,15 +20,12 @@ parameters:
     description: "firecracker extra parameters"
   api_token:
     type: string
-    required: true
     description: "firecracker api token"
   email:
     type: string
-    required: true
     description: "firecracker email"
   project_id:
     type: string
-    required: true
     description: "firecracker project_id"
   json_extra_params:
     type: string
