@@ -4,7 +4,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    firecracker: practitest/firecracker@0.0.6
+    firecracker: practitest/firecracker@0.0.5
   jobs:
     build:
       docker:
@@ -57,10 +57,10 @@ usage:
             # add here testset field mapping
             additional_testset_fields:
 
-  workflows:
-    my-workflow:
-      jobs:
-        - build:
-            context:
-              # context where you set your parameters to use for firecracker parameters
-              - PT API Token
+    workflows:
+      my-workflow:
+        jobs:
+          - build:
+              context:
+                # context where you set your parameters to use for firecracker parameters
+                - PT API Token
