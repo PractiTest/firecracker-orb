@@ -9,7 +9,7 @@ usage:
     build:
       docker:
         # just an example use
-        - image: circleci/ruby:2.5.5-node
+          - image: circleci/ruby:2.5.5-node
       steps:
         # in case you don't run as machine you will need to add a remote docker for the firecracker orb.
         # !!! that will need to run before your tests in case they fail !!!
@@ -17,8 +17,6 @@ usage:
             version: 19.03.13
 
         # run tests!
-        - run:
-            name: run tests
 
         # collect reports
         - store_test_results:
@@ -57,10 +55,10 @@ usage:
             # add here testset field mapping
             additional_testset_fields:
 
-    workflows:
-      my-workflow:
-        jobs:
-          - build:
-              context:
-                # context where you set your parameters to use for firecracker parameters
-                - PT API Token
+  workflows:
+    my-workflow:
+      jobs:
+        - build:
+            context:
+              # context where you set your parameters to use for firecracker parameters
+              - PT API Token
