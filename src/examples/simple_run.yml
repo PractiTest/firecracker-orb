@@ -1,25 +1,64 @@
 description: >
-  Use the GitHub CLI to issue a new release as a part of your CircleCI pipeline.
-  In this example, on every commit (merge) to the "main" branch, we will use the config to specify the desired tag and issue a release.
-  Add a Context containing your GITHUB_TOKEN or set a project-level environment variable.
+  Regular run of firecracker that will,
+  run ruby tests and upload the results to Practitest via Firecracker.
 usage:
   version: 2.1
   orbs:
-    gh: circleci/github-cli@1.0
-    node: circleci/node@4.3
+    firecracker: practitest/firecracker@0.0.5
+  jobs:
+    build:
+      # just an example use
+      docker:
+        - image: circleci/ruby:2.5.5-node
+      # in case you don't run as machine you will need to add a remote docker for the firecracker orb.
+      # !!! that will need to run before your tests in case they fail !!!
+      steps:
+        - setup_remote_docker:
+            version: 19.03.13
+
+        # run tests!
+
+        # collect reports
+        - store_test_results:
+            # need to be set to test_folder parameter of firecracker
+            path: test_results
+
+        # the actual run of firecracker
+        - firecracker/fire:
+            # firecracker version to use
+            firecracker_version: v2.0.3
+            # the folder that contains test results; required
+            test_folder: test_results
+            # user id who will run firecracker (should depend on api toekn that you use); required
+            author_id: ${FIRE_AUTHOR}
+            # in case you use eu server of practitest you will need to change it into "https://eu1-prod.practitest.app"
+            api_uri: |
+              https://prod.practitest.app/login
+            # your PAT (personal api token) or your account's api token; required
+            api_token: ${FIRE_API_TOKEN}
+            # email of the user that will run firecracker; required
+            email: ${FIRE_EMAIL}
+            # project id that firecracker will direct the results too; required
+            project_id: ${FIRE_PROJECT_ID}
+            # decide if firecracker will create multiple testset
+            multitestset: true
+            # in case of single testset creation choose the name for this testset name
+            testset_name: ""
+            # decide if firecracker will use test-case as practitest steps or tests
+            test_case_as_pt_test_step: ""
+            # in case you want to use more params in your command line
+            extra_params: ""
+            # in case you want to add extra params to json configuration
+            json_extra_params: ""
+            # add here test fields mapping
+            additional_test_fields: ""
+            # add here testset field mapping
+            additional_testset_fields: ""
+
+  # context where you set your parameters to use for firecracker parameters
   workflows:
-    test-and-deploy:
+    my-workflow:
       jobs:
-        - node/test
-        - gh/release:
-            tag: "1.0.0"
-            title: "The initial release"
-            notes-file: changelog.md
+        - build:
             context:
-              - GITHUB_CREDS
-            requires:
-              - node/test
-            filters:
-              branches:
-                only:
-                  - main
+              - PT API Token
