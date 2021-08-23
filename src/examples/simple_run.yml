@@ -51,9 +51,9 @@ usage:
             # in case you want to add extra params to json configuration
             json_extra_params: ""
             # add here test fields mapping
-            additional_test_fields:
+            additional_test_fields: ""
             # add here testset field mapping
-            additional_testset_fields:
+            additional_testset_fields: ""
 
   # context where you set your parameters to use for firecracker parameters
   workflows:
