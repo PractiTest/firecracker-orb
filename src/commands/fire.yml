@@ -9,7 +9,7 @@ parameters:
     description: "test results folder name"
   firecracker_version:
     type: string
-    default: "v2.1"
+    default: "v2.0.2"
     description: "firecracker version"
   author_id:
     type: string
@@ -36,9 +36,13 @@ parameters:
     default: "https://prod.practitest.com/"
     description: "firecracker uri"
   multitestset:
-    type: string
-    default: "true"
+    type: boolean
+    default: false
     description: "firecracker is multitestset run"
+  test_case_as_pt_test_step:
+    type: boolean
+    default: true
+    description: "firecracker is test-case-as-pt-test-step run"
   testset_name:
     type: string
     default: "FirecrackerTestSet"
@@ -56,39 +60,14 @@ parameters:
 
 steps:
   - run:
-      name: create config file
+      name: prepare data and download firecracker for
       command: |
-        echo "{\"api-token\":\"<<parameters.api_token>>\",\"email\":\"<<parameters.email>>\",\"project-id\":"<<parameters.project_id>>",\"additional-test-fields\":{<<parameters.additional_test_fields>>},\"additional-testset-fields\":{<<parameters.additional_testset_fields>>}<<parameters.json_extra_params>>}" > config.json
-      when: always
-
-  - run:
-      name: download firecracker jar
-      command: |
-        wget https://github.com/PractiTest/practitest-firecracker/releases/download/<<parameters.firecracker_version>>/practitest-firecracker-standalone.jar
-      when: always
-
-  - run:
-      name: create docker
-      command: |
-        docker create -v /app --name firecracker adoptopenjdk:11-jre-hotspot
-      when: always
-
-  - run:
-      name: copy xml results
-      command: |
-        docker cp "$(pwd)"/<<parameters.test_folder>> firecracker:/app
-      when: always
-
-  - run:
-      name: copy json
-      command: |
-        docker cp "$(pwd)"/config.json firecracker:/app
-      when: always
-
-  - run:
-      name: copy jar
-      command: |
-        docker cp "$(pwd)"/practitest-firecracker-standalone.jar firecracker:/app
+        echo "{\"api-token\":\"<<parameters.api_token>>\",\"email\":\"<<parameters.email>>\",\"project-id\":"<<parameters.project_id>>",\"additional-test-fields\":{<<parameters.additional_test_fields>>},\"additional-testset-fields\":{<<parameters.additional_testset_fields>>},\"multitestset\":<<parameters.multitestset>>,\"test-case-as-pt-test-step\":<<parameters.test_case_as_pt_test_step>>,\"testset-name\":<<parameters.testset_name>>}" > config.json
+        && wget https://github.com/PractiTest/practitest-firecracker/releases/download/<<parameters.firecracker_version>>/practitest-firecracker-standalone.jar
+        && docker create -v /app --name firecracker adoptopenjdk:11-jre-hotspot
+        && docker cp "$(pwd)"/<<parameters.test_folder>> firecracker:/app
+        && docker cp "$(pwd)"/config.json firecracker:/app
+        && docker cp "$(pwd)"/practitest-firecracker-standalone.jar firecracker:/app
       when: always
 
   - run:
