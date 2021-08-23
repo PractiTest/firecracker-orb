@@ -1,5 +1,8 @@
-version: 2.1
+description: >
+  Regular run of firecracker that will,
+  run ruby tests and upload the results to Practitest via Firecracker.
 usage:
+  version: 2.1
   orbs:
     firecracker: practitest/firecracker@0.0.6
   jobs:
