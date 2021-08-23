@@ -55,10 +55,10 @@ usage:
             # add here testset field mapping
             additional_testset_fields:
 
+  # context where you set your parameters to use for firecracker parameters
   workflows:
     my-workflow:
       jobs:
         - build:
             context:
-              # context where you set your parameters to use for firecracker parameters
               - PT API Token
