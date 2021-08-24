@@ -1,32 +1,31 @@
 description: >
   This command will get all the configurations for firecracker run
     and execute it.
-  Firecracker -is a tool to create testset/test/steps in PractiTest
+  Firecracker -is a tool to create Testset, Test and Steps in PractiTest
     from XML test results.
 parameters:
   test_folder:
     type: string
-    description: "test results folder name"
+    description: "folder that contains test results"
   firecracker_version:
     type: string
-    default: "v2.0.2"
-    description: "firecracker version"
+    description: "firecracker version to use"
   author_id:
     type: string
-    description: "firecracker author id"
+    description: "user id who will run firecracker (should depend on api toekn that you use)"
   extra_params:
     type: string
     default: ""
-    description: "firecracker extra parameters"
+    description: "in case you want to add extra params to json configuration"
   api_token:
-    type: string
-    description: "firecracker api token"
+    type: env_var_name
+    description: "your PAT (personal api token) or your account's api token in Practitest"
   email:
     type: string
-    description: "firecracker email"
+    description: "email of the user that will run firecracker"
   project_id:
     type: string
-    description: "firecracker project_id"
+    description: "project id that firecracker will direct the results to"
   json_extra_params:
     type: string
     default: ""
@@ -34,29 +33,29 @@ parameters:
   api_uri:
     type: string
     default: "https://prod.practitest.com/"
-    description: "firecracker uri"
+    description: "in case you use eu server of practitest you will need to change it into https://eu1-prod.practitest.app"
   multitestset:
     type: boolean
     default: false
-    description: "firecracker is multitestset run"
+    description: "decide if firecracker will create multiple testset or single testset"
   test_case_as_pt_test_step:
     type: boolean
     default: true
-    description: "firecracker is test-case-as-pt-test-step run"
+    description: "decide if firecracker will use test-case as practitest steps or tests; true will group testcases into one test and each testcase will be a step"
   testset_name:
     type: string
     default: "FirecrackerTestSet"
-    description: "firecracker testset name in case of single Testset run"
+    description: "in case of single testset creation choose the name for this testset name"
   additional_test_fields:
     type: string
     default: |
       \"custom-fields\":{},\"system-fields\":{}
-    description: "firecracker additional-test-fields"
+    description: "add here test fields mapping"
   additional_testset_fields:
     type: string
     default: |
       \"custom-fields\":{},\"system-fields\":{}
-    description: "firecracker additional-testset-fields "
+    description: "add here testset field mapping"
 
 steps:
   - run:
