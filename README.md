@@ -6,8 +6,10 @@ And orb to execute Firecracker tool that will update CircleCi test results into 
 
 ## Resources
 
-[CircleCI Orb Registry Page](https://www.practitest.com/help/methodology-tips/firecracker/) - Firecracker terminology.
+[Firecracker terminology](https://www.practitest.com/help/methodology-tips/firecracker/) - Firecracker terminology, will help you to understand what is Firecracker all about.
+
 [Firecracker UI](https://firecracker-ui-prod.practitest.com/) - Firecracker UI that will help you to create your configure.
+
 [Firecracker Git](https://github.com/PractiTest/practitest-firecracker) - Firecracker git for local testing and additional information.
 
 For more information contact our support.
