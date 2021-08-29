@@ -29,7 +29,7 @@ usage:
             author_id: ${FIRE_AUTHOR}
             api_uri: |
               https://prod.practitest.app/login
-            api_token: ${FIRE_API_TOKEN}
+            api_token: FIRE_API_TOKEN
             email: ${FIRE_EMAIL}
             project_id: ${FIRE_PROJECT_ID}
             multitestset: true
