@@ -61,11 +61,11 @@ steps:
   - run:
       name: prepare data and download firecracker for
       command: |
-        echo "{\"api-token\":\"<<parameters.api_token>>\",\"email\":\"<<parameters.email>>\",\"project-id\":"<<parameters.project_id>>",\"additional-test-fields\":{<<parameters.additional_test_fields>>},\"additional-testset-fields\":{<<parameters.additional_testset_fields>>},\"multitestset\":<<parameters.multitestset>>,\"test-case-as-pt-test-step\":<<parameters.test_case_as_pt_test_step>>,\"testset-name\":<<parameters.testset_name>>}" > config.json |
-        wget https://github.com/PractiTest/practitest-firecracker/releases/download/<<parameters.firecracker_version>>/practitest-firecracker-standalone.jar |
-        docker create -v /app --name firecracker adoptopenjdk:11-jre-hotspot |
-        docker cp "$(pwd)"/<<parameters.test_folder>> firecracker:/app |
-        docker cp "$(pwd)"/config.json firecracker:/app |
+        echo "{\"api-token\":\"<<parameters.api_token>>\",\"email\":\"<<parameters.email>>\",\"project-id\":"<<parameters.project_id>>",\"additional-test-fields\":{<<parameters.additional_test_fields>>},\"additional-testset-fields\":{<<parameters.additional_testset_fields>>},\"multitestset\":<<parameters.multitestset>>,\"test-case-as-pt-test-step\":<<parameters.test_case_as_pt_test_step>>,\"testset-name\":<<parameters.testset_name>>}" > config.json
+        wget https://github.com/PractiTest/practitest-firecracker/releases/download/<<parameters.firecracker_version>>/practitest-firecracker-standalone.jar
+        docker create -v /app --name firecracker adoptopenjdk:11-jre-hotspot
+        docker cp "$(pwd)"/<<parameters.test_folder>> firecracker:/app
+        docker cp "$(pwd)"/config.json firecracker:/app
         docker cp "$(pwd)"/practitest-firecracker-standalone.jar firecracker:/app
       when: always
 
