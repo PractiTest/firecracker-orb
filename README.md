@@ -13,3 +13,12 @@ And orb to execute Firecracker tool that will update CircleCi test results into 
 [Firecracker Git](https://github.com/PractiTest/practitest-firecracker) - Firecracker git for local testing and additional information.
 
 For more information contact our support.
+
+## Important!!
+
+In case you don't run your circleci as machine user or don't set a docker you will need to add those lines as a step:
+~~~
+- setup_remote_docker:
+            version: 19.03.13
+~~~
+**before** you run your tests (in case they fail).
