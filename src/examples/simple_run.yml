@@ -3,12 +3,13 @@ description: >
   run ruby tests and upload the results to Practitest via Firecracker.
 
   !!!important!!!
+
   In case you don't run your circleci as machine user or don't have java on the image you use, you will need to add those lines as a step:
-  ~~~
+
   - setup_remote_docker:
               version: 19.03.13
-  ~~~
-  **before** you run your tests (in case they fail).
+
+  before you run your tests (in case they fail).
 usage:
   version: 2.1
   orbs:
