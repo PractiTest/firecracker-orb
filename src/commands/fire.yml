@@ -11,7 +11,7 @@ parameters:
     type: string
     description: "firecracker version to use"
   author_id:
-    type: string
+    type: integer
     description: "user id who will run firecracker (should depend on api toekn that you use)"
   extra_params:
     type: string
