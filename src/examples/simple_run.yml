@@ -38,17 +38,9 @@ usage:
             firecracker_version: v2.0.3
             test_folder: test_results
             author_id: ${FIRE_AUTHOR}
-            api_uri: https://api.practitest.app
             api_token: FIRE_API_TOKEN
             email: ${FIRE_EMAIL}
             project_id: ${FIRE_PROJECT_ID}
-            multitestset: true
-            testset_name: ""
-            test_case_as_pt_test_step: false
-            extra_params: ""
-            json_extra_params: ""
-            additional_test_fields: ""
-            additional_testset_fields: ""
 
   workflows:
     my-workflow:
