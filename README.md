@@ -16,9 +16,11 @@ For more information contact our support.
 
 ## Important!!
 
-In case you don't run your circleci as machine user or don't have java on the image you use, you will need to add those lines as a step:
+In case you don't run your circleci as machine user you will need to add these lines as a step:
+
 ~~~
 - setup_remote_docker:
             version: 19.03.13
 ~~~
+
 **before** you run your tests (in case they fail).
