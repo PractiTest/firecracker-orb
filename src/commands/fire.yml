@@ -19,6 +19,7 @@ parameters:
     description: "in case you want to add extra params to json configuration"
   api_token:
     type: env_var_name
+    default: FIRE_API_TOKEN
     description: "your PAT (personal api token) or your account's api token in Practitest"
   email:
     type: string
