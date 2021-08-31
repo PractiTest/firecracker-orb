@@ -21,7 +21,7 @@ usage:
       docker:
         - image: circleci/ruby:2.5.5-node
       # in case you don't run as machine you will need to add a remote docker for the firecracker orb.
-      # !!! that will need to run before your tests in case they fail !!!
+      # !!! that will need to run before your tests in case they fail!!!
       steps:
         - setup_remote_docker:
             version: 19.03.13
