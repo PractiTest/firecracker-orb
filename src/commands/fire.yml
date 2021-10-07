@@ -66,6 +66,9 @@ steps:
         wget https://github.com/PractiTest/practitest-firecracker/releases/download/<<parameters.firecracker_version>>/practitest-firecracker-standalone.jar
         docker create -v /app --name firecracker adoptopenjdk:11-jre-hotspot
         docker cp "$(pwd)"/<<parameters.test_folder>> firecracker:/app
+        docker ls firecracker:/app
+        docker ls app
+        docker ls
         docker cp "$(pwd)"/config.json firecracker:/app
         docker cp "$(pwd)"/practitest-firecracker-standalone.jar firecracker:/app
       when: always
