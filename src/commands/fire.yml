@@ -67,7 +67,7 @@ steps:
         pwd
         ls
         cat config.json
-        <<parameters.author_id>>
+        print <<parameters.author_id>>
         docker create -v /app --name firecracker adoptopenjdk:11-jre-hotspot
         docker cp "$(pwd)"/<<parameters.test_folder>> firecracker:/app
         docker cp "$(pwd)"/config.json firecracker:/app
