@@ -76,5 +76,5 @@ steps:
   - run:
       name: start firecracker
       command: |
-        docker run --volumes-from firecracker adoptopenjdk:11-jre-hotspot java --illegal-access=deny -jar /app/practitest-firecracker-standalone.jar --reports-path="app/<<parameters.test_folder>>" --api-uri=<<parameters.api_uri>> --author-id=<<parameters.author_id>> --config-path="app/config.json" <<parameters.extra_params>> create-and-populate-testset
+        docker run --volumes-from firecracker adoptopenjdk:11-jre-hotspot java --illegal-access=deny -jar /app/practitest-firecracker-standalone.jar --reports-path="app/<<parameters.test_folder>>" --api-uri=<<parameters.api_uri>> --author-id="<<parameters.author_id>>" --config-path="app/config.json" <<parameters.extra_params>> create-and-populate-testset
       when: always
