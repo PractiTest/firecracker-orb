@@ -11,7 +11,7 @@ parameters:
     type: string
     description: "firecracker version to use"
   author_id:
-    type: integer
+    type: string
     description: "user id who will run firecracker (should depend on api toekn that you use)"
   extra_params:
     type: string
@@ -25,7 +25,7 @@ parameters:
     type: string
     description: "email of the user that will run firecracker"
   project_id:
-    type: integer
+    type: string
     description: "project id that firecracker will direct the results to"
   json_extra_params:
     type: string
@@ -66,9 +66,6 @@ steps:
         wget https://github.com/PractiTest/practitest-firecracker/releases/download/<<parameters.firecracker_version>>/practitest-firecracker-standalone.jar
         docker create -v /app --name firecracker adoptopenjdk:11-jre-hotspot
         docker cp "$(pwd)"/<<parameters.test_folder>> firecracker:/app
-        docker ls firecracker:/app
-        docker ls app
-        docker ls
         docker cp "$(pwd)"/config.json firecracker:/app
         docker cp "$(pwd)"/practitest-firecracker-standalone.jar firecracker:/app
       when: always
