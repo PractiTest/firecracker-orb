@@ -76,7 +76,6 @@ steps:
   - run:
       name: start firecracker
       command: |
-        echo <<parameters.author_id>> >> $BASH_AUTHOR_ID
-        $BASH_AUTHOR_ID
+        echo "<<parameters.author_id>>" > $BASH_AUTHOR_ID
         docker run --volumes-from firecracker adoptopenjdk:11-jre-hotspot java --illegal-access=deny -jar /app/practitest-firecracker-standalone.jar --reports-path="app/<<parameters.test_folder>>" --api-uri=<<parameters.api_uri>> --author-id=$BASH_AUTHOR_ID --config-path="app/config.json" <<parameters.extra_params>> create-and-populate-testset
       when: always
