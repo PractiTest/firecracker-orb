@@ -12,7 +12,7 @@ parameters:
     description: "firecracker version to use"
   author_id:
     type: string
-    description: "user id who will run firecracker (should depend on api toekn that you use)"
+    description: "user id who will run firecracker (should depend on api token that you use)"
   extra_params:
     type: string
     default: ""
@@ -27,10 +27,6 @@ parameters:
   project_id:
     type: string
     description: "project id that firecracker will direct the results to"
-  json_extra_params:
-    type: string
-    default: ""
-    description: "firecracker json_extra_params"
   api_uri:
     type: string
     default: "https://api.practitest.com"
@@ -56,13 +52,23 @@ parameters:
     type: string
     default: |
       \"custom-fields\":{},\"system-fields\":{}
-    description: "add here testset field mapping "
+    description: "add here testset field mapping"
+  test_name:
+    type: string
+    default: |
+      ?pt-test-name
+    description: "map test name"
+  step_name:
+    type: string
+    default: |
+      ?pt-test-step-name
+    description: "map step name"
 
 steps:
   - run:
       name: prepare data and download firecracker for
       command: |
-        echo "{\"api-token\":\"${<<parameters.api_token>>}\",\"email\":\"<<parameters.email>>\",\"project-id\":\"<<parameters.project_id>>\",\"additional-test-fields\":{<<parameters.additional_test_fields>>},\"additional-testset-fields\":{<<parameters.additional_testset_fields>>},\"multitestset\":<<parameters.multitestset>>,\"test-case-as-pt-test-step\":<<parameters.test_case_as_pt_test_step>>,\"testset-name\":\"<<parameters.testset_name>>\"}" > config.json
+        echo "{\"api-token\":\"${<<parameters.api_token>>}\",\"email\":\"<<parameters.email>>\",\"project-id\":\"<<parameters.project_id>>\",\"additional-test-fields\":{<<parameters.additional_test_fields>>},\"additional-testset-fields\":{<<parameters.additional_testset_fields>>},\"multitestset\":<<parameters.multitestset>>,\"test-case-as-pt-test-step\":<<parameters.test_case_as_pt_test_step>>,\"testset-name\":\"<<parameters.testset_name>>\",\"pt-test-name\":\"<<parameters.test_name>>\",\"pt-test-step-name\":\"<<parameters.step_name>>\"}" > config.json
         wget https://github.com/PractiTest/practitest-firecracker/releases/download/<<parameters.firecracker_version>>/practitest-firecracker-standalone.jar
         docker create -v /app --name firecracker adoptopenjdk:11-jre-hotspot
         docker cp "$(pwd)"/<<parameters.test_folder>> firecracker:/app
@@ -73,5 +79,5 @@ steps:
   - run:
       name: start firecracker
       command: |
-        docker run --volumes-from firecracker adoptopenjdk:11-jre-hotspot java --illegal-access=deny -jar /app/practitest-firecracker-standalone.jar --reports-path="app/<<parameters.test_folder>>" --api-uri=<<parameters.api_uri>> --author-id=<<parameters.author_id>> --config-path="app/config.json" <<parameters.extra_params>> create-and-populate-testset
+        docker run --volumes-from firecracker adoptopenjdk:11-jre-hotspot java --illegal-access=deny -jar /app/practitest-firecracker-standalone.jar --reports-path="app/<<parameters.test_folder>>" --api-uri=<<parameters.api_uri>> --author-id="<<parameters.author_id>>" --config-path="app/config.json" <<parameters.extra_params>> create-and-populate-testset
       when: always
