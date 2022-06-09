@@ -52,7 +52,7 @@ parameters:
     type: string
     default: |
       \"custom-fields\":{},\"system-fields\":{}
-    description: "add here testset field mapping"
+    description: "add here Testset field mapping"
   test_name:
     type: string
     default: |
