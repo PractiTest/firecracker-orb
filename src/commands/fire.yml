@@ -57,12 +57,12 @@ parameters:
     type: string
     default: |
       ?pt-test-name
-    description: "map test name"
+    description: "map tests name"
   step_name:
     type: string
     default: |
       ?pt-test-step-name
-    description: "map step name"
+    description: "map steps name"
 
 steps:
   - run:
